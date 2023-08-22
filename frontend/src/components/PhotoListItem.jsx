@@ -6,10 +6,17 @@ import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
+  const {photoLike, photoDislike} = props;
   const [liked, setLiked] = useState(false);
   
   const photoLiked = () => {
-    return (liked === false) ? setLiked(true) : setLiked(false);
+    if (liked === false) {
+      setLiked(true);
+      photoLike(props.photo.id)
+    } else {
+      setLiked(false)
+      photoDislike(props.photo.id)
+    }
   }
 
   return (

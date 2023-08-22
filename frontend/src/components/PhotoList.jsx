@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../styles/PhotoList.scss";
 import photos from "mocks/photos";
 import PhotoListItem from "./PhotoListItem";
 
-const PhotoList = () => {
+const PhotoList = (props) => {
+  const {setFavedPhotos, setFav} = props;
+
+  const photoLike = (photoID) => {
+    setFavedPhotos(arr => [...arr, photoID])
+    setFav(true);
+  }
+
+  const photoDislike = (photoID) => {
+    setFavedPhotos(arr => {
+      const newArr = arr.filter((photos)=> {return photos !== photoID})
+      return newArr
+    })
+  }
+
   return (
     <ul className="photo-list">
       {photos.map((photos) => (
         <li key={photos.id}>
-          <PhotoListItem key={photos.id} photo={photos}/>
+          <PhotoListItem key={photos.id} photo={photos} photoLike={photoLike} photoDislike={photoDislike}/>
         </li>
       ))}
     </ul>

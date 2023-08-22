@@ -13,9 +13,8 @@ const HomeRoute = () => {
   return (
     <div className="home-route">
       <TopNavigation fav={fav}/>
-      <PhotoList/>
-      <button onClick={()=> setFavedPhotos(arr => [...arr, `${arr.length}`])}>TEST</button>
-      <button onClick={()=> setFav(true)}>FAV</button>
+      <PhotoList setFavedPhotos={setFavedPhotos} setFav={setFav} favedPhotos={favedPhotos}/>
+      {/* <button onClick={()=> setFavedPhotos(arr => [...arr, `${arr.length}`])}>TEST</button> */}
     </div>
   );
 };

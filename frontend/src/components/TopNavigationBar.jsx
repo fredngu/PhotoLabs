@@ -12,6 +12,7 @@ const TopNavigation = (props) => {
       <div className='top-nav-bar'>
         <TopicList/>
         <FavBadge isFavPhotoExist={fav}/>
+        {/* <FavBadge isFavPhotoExist={fav}/> */}
       </div>
     </div>
   )

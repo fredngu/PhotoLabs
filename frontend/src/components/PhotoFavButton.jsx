@@ -5,7 +5,10 @@ import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton(props) {
   const {liked, photoLiked} = props;
-  const handleLiked = () => photoLiked();
+
+  const handleLiked = () => {
+    photoLiked()
+  }
 
   return (
     <div className="photo-list__fav-icon">

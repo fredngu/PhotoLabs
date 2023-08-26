@@ -4,26 +4,13 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  const {setFavedPhotos, setFav, openModal, photos} = props;
-
-  let photolist = [...photos]
-  const photoLike = (photoID) => {
-    setFavedPhotos(arr => [...arr, photoID])
-    setFav(true);
-  }
-
-  const photoDislike = (photoID) => {
-    setFavedPhotos(arr => {
-      const newArr = arr.filter((photos)=> {return photos !== photoID})
-      return newArr
-    })
-  }
+  const {photos, selectPhotos, updateToFavPhotoIds} = props;
 
   return (
     <ul className="photo-list">
-      {photolist.map((photos) => (
+      {photos.map((photos) => (
         <li key={photos.id}>
-          <PhotoListItem key={photos.id} photo={photos} photoLike={photoLike} photoDislike={photoDislike} openModal={openModal}/>
+          <PhotoListItem key={photos.id} photo={photos} selectPhotos={selectPhotos} updateToFavPhotoIds={updateToFavPhotoIds}/>
         </li>
       ))}
     </ul>

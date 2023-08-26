@@ -6,26 +6,26 @@ import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
-  const {photoLike, photoDislike, openModal} = props;
+  const {selectPhotos, updateToFavPhotoIds} = props
   const [liked, setLiked] = useState(false);
   
   const photoLiked = () => {
     if (liked === false) {
       setLiked(true);
-      photoLike(props.photo)
+      updateToFavPhotoIds(true, props.photo);
     } else {
       setLiked(false)
-      photoDislike(props.photo)
+      updateToFavPhotoIds(false, props.photo);
     }
   }
 
   const handleModal = () => {
-    openModal(props.photo)
+    selectPhotos(props.photo)
   }
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton liked={liked} photoLiked={photoLiked}/>
+      <PhotoFavButton liked={liked} photoLiked={photoLiked} updateToFavPhotoIds={updateToFavPhotoIds}/>
       <img onClick={handleModal} className="photo-list__image" src={props.photo.urls.full}/>
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={props.photo.user.profile}/>

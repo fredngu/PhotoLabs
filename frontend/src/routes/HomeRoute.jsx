@@ -3,7 +3,6 @@ import React from 'react';
 import '../styles/HomeRoute.scss';
 import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
-import photos from "mocks/photos";
 
 const HomeRoute = (props) => {
   const {
@@ -11,11 +10,14 @@ const HomeRoute = (props) => {
     state,
     favedPhotos,
     selectPhoto,
+    photoData,
+    topicData
   } = props;
   
+  const photos = [...photoData]
   return (
     <div className="home-route">
-      <TopNavigation fav={state.fav}/>
+      <TopNavigation topicData={topicData} fav={state.fav}/>
       <PhotoList photos={photos} selectPhoto={selectPhoto} updateToFavPhotoIds={updateToFavPhotoIds} favedPhotos={favedPhotos}/>
     </div>
   );

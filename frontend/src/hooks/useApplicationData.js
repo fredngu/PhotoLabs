@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -13,10 +13,12 @@ export const initialState = {
   photoSelected: null,
   favedPhotos: [],
   fav: false,
+  photoData: [],
+  topicData: []
 }
 
 const reducer = (state, action) => {
-  const {FAV_PHOTO_ADDED, FAV_PHOTO_REMOVED, SELECT_PHOTO} = ACTIONS;
+  const {FAV_PHOTO_ADDED, FAV_PHOTO_REMOVED, SELECT_PHOTO, SET_PHOTO_DATA, SET_TOPIC_DATA} = ACTIONS;
   switch (action.type) {
     case FAV_PHOTO_ADDED:
       return {
@@ -38,6 +40,16 @@ const reducer = (state, action) => {
         ...state,
         photoSelected: action.value,
       }
+    case SET_PHOTO_DATA:
+      return {
+        ...state,
+        photoData: action.payload
+      }
+    case SET_TOPIC_DATA:
+      return {
+        ...state,
+        topicData: action.payload
+      }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -48,12 +60,24 @@ const reducer = (state, action) => {
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(()=> {
+    fetch('http://localhost:8001/api/photos')
+      .then(res => res.json())
+      .then(data => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data}))
+  },[])
+
+  useEffect(() => {
+    fetch('http://localhost:8001/api/topics')
+      .then(res => res.json())
+      .then(data => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: data}))
+  }, [])
+
   //updates the favourited photo array + favourite notification
   const updateToFavPhotoIds = (liked, photoID) => {
     if (liked === true && !state.favedPhotos.includes(photoID)) {
-      dispatch({type: ACTIONS.FAV_PHOTO_ADDED, value: photoID})
+      dispatch({type: ACTIONS.FAV_PHOTO_ADDED, value: photoID, id: photoID.id})
     } else if (liked === false) {
-      dispatch({type: ACTIONS.FAV_PHOTO_REMOVED, value: photoID})
+      dispatch({type: ACTIONS.FAV_PHOTO_REMOVED, value: photoID, id: photoID.id})
     }
   }
   console.log(state.favedPhotos);
@@ -74,6 +98,8 @@ export default function useApplicationData() {
     state,
     favedPhotos: state.favedPhotos,
     photoSelected: state.photoSelected,
+    photoData: state.photoData,
+    topicData: state.topicData,
     updateToFavPhotoIds,
     selectPhoto,
     onClosePhotoDetailsModal

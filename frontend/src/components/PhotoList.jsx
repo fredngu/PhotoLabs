@@ -6,16 +6,15 @@ import PhotoListItem from "./PhotoListItem";
 const PhotoList = (props) => {
   const {
     photos, 
-    setPhotoSelected, 
     selectPhoto,
     updateToFavPhotoIds, 
     favedPhotos} = props;
 
   return (
     <ul className="photo-list">
-      {photos.map((photos) => (
-        <li key={photos.id}>
-          <PhotoListItem key={photos.id} photo={photos} favedPhotos={favedPhotos} selectPhoto={selectPhoto} updateToFavPhotoIds={updateToFavPhotoIds}/>
+      {photos.map((photo) => (
+        <li key={photo.id}>
+          <PhotoListItem key={photo.id} photo={photo} favedPhotos={favedPhotos} selectPhoto={selectPhoto} updateToFavPhotoIds={updateToFavPhotoIds}/>
         </li>
       ))}
     </ul>

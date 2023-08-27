@@ -10,10 +10,8 @@ const PhotoDetailsModal = (props) => {
 
   const photoLiked = () => {
     if (!favedPhotos.includes(photoSelected)) {
-      console.log('okay')
       updateToFavPhotoIds(true, photoSelected);
     } else {
-      console.log('not okay')
       updateToFavPhotoIds(false, photoSelected);
     }
   }
@@ -23,18 +21,30 @@ const PhotoDetailsModal = (props) => {
   const handleClose = () => onClosePhotoDetailsModal()
   return (
     <div className="photo-details-modal">
-      <button className="photo-details-modal__close-button">
-        <img onClick={handleClose} src={closeSymbol} alt="close symbol" />
-      </button>
+      <div className='photo-details-modal__top-bar'>
+        <button className="photo-details-modal__close-button">
+          <img onClick={handleClose} src={closeSymbol} alt="close symbol" />
+        </button>
+      </div>
       <div className='photo-details-modal__images'>
         <br></br>
         <PhotoFavButton favedPhotos={favedPhotos} photo={photoSelected} photoLiked={photoLiked}/>
         <img className='photo-details-modal__image' src={photoSelected.urls.full}/>
         <br></br>
-        <br></br>
-        <span className='photo-details-modal__header'>Similar Photos</span>
-        <div className='photo-details-modal__images'>
-          <PhotoList photos={similarPhoto} favedPhotos={favedPhotos}updateToFavPhotoIds={updateToFavPhotoIds}/>
+        <div className='photo-details-modal__photographer-details'>
+          <img className="photo-list__user-profile" src={photoSelected.user.profile}/>
+          <span className="photo-list__user-info">
+            {photoSelected.user.name}
+            <br/>
+            <span className="photo-list__user-location">{photoSelected.location.city}, </span>
+            <span className="photo-list__user-location"> {photoSelected.location.country}</span>
+          </span>
+        </div>
+        <div>
+          <div className='photo-details-modal__header'>Similar Photos</div>
+        </div>
+        <div className='photo-details-modal__image'>
+          <PhotoList photos={similarPhoto} favedPhotos={favedPhotos}updateToFavPhotoIds={updateToFavPhotoIds} photoLiked={photoLiked}/>
         </div>
       </div>
     </div>

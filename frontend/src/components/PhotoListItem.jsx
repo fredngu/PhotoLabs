@@ -9,10 +9,8 @@ const PhotoListItem = (props) => {
 
   const photoLiked = () => {
     if (!favedPhotos.includes(photo)) {
-      console.log('okay')
       updateToFavPhotoIds(true, photo);
     } else {
-      console.log('not okay')
       updateToFavPhotoIds(false, photo);
     }
   }

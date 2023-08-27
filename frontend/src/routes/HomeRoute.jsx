@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import '../styles/HomeRoute.scss';
 import TopNavigation from 'components/TopNavigationBar';
@@ -7,22 +7,16 @@ import photos from "mocks/photos";
 
 const HomeRoute = (props) => {
   const {
-    setPhotoSelected, 
     updateToFavPhotoIds,
     state,
-    favedPhotos
+    favedPhotos,
+    selectPhoto,
   } = props;
-
-
-  const handleModal = () => {
-    setPhotoSelected(photo)
-
-  }
   
   return (
     <div className="home-route">
       <TopNavigation fav={state.fav}/>
-      <PhotoList photos={photos} setPhotoSelected={setPhotoSelected} updateToFavPhotoIds={updateToFavPhotoIds} favedPhotos={favedPhotos}/>
+      <PhotoList photos={photos} selectPhoto={selectPhoto} updateToFavPhotoIds={updateToFavPhotoIds} favedPhotos={favedPhotos}/>
     </div>
   );
 };

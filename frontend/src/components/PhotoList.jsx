@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = (props) => {
-  const {photos, setPhotoSelected, updateToFavPhotoIds, favedPhotos} = props;
+  const {
+    photos, 
+    setPhotoSelected, 
+    selectPhoto,
+    updateToFavPhotoIds, 
+    favedPhotos} = props;
 
   return (
     <ul className="photo-list">
       {photos.map((photos) => (
         <li key={photos.id}>
-          <PhotoListItem key={photos.id} photo={photos} favedPhotos={favedPhotos} setPhotoSelected={setPhotoSelected} updateToFavPhotoIds={updateToFavPhotoIds}/>
+          <PhotoListItem key={photos.id} photo={photos} favedPhotos={favedPhotos} selectPhoto={selectPhoto} updateToFavPhotoIds={updateToFavPhotoIds}/>
         </li>
       ))}
     </ul>

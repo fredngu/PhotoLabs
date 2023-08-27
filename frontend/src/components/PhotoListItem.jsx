@@ -1,12 +1,11 @@
-import React, { useReducer } from "react";
+import React from "react";
 import PhotoFavButton from "./PhotoFavButton";
-import { useState } from "react";
 
 import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
-  const {setPhotoSelected, updateToFavPhotoIds, photo, favedPhotos} = props
+  const {updateToFavPhotoIds, photo, favedPhotos, selectPhoto} = props
 
   const photoLiked = () => {
     if (!favedPhotos.includes(photo)) {
@@ -19,7 +18,7 @@ const PhotoListItem = (props) => {
   }
 
   const handleModal = () => {
-    setPhotoSelected(photo)
+    selectPhoto(photo)
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React from 'react';
 
 import './App.scss';
 import HomeRoute from 'routes/HomeRoute';
@@ -11,14 +11,15 @@ const App = (props) => {
     state,
     favedPhotos,
     photoSelected,
-    setPhotoSelected,
+    selectPhoto,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
   } = useApplicationData();
 
   return (
     <div className="App">
-      <HomeRoute updateToFavPhotoIds={updateToFavPhotoIds} state={state} favedPhotos={favedPhotos} setPhotoSelected={setPhotoSelected}/>
+      <HomeRoute updateToFavPhotoIds={updateToFavPhotoIds} state={state} favedPhotos={favedPhotos}
+      selectPhoto={selectPhoto}/>
       {photoSelected !== null && 
       (<PhotoDetailsModal 
       favedPhotos={favedPhotos}

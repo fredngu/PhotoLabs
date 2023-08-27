@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import PhotoFavButton from "./PhotoFavButton";
 import { useState } from "react";
 
@@ -6,34 +6,33 @@ import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
-  const {selectPhotos, updateToFavPhotoIds} = props
-  const [liked, setLiked] = useState(false);
-  
+  const {setPhotoSelected, updateToFavPhotoIds, photo, favedPhotos} = props
+
   const photoLiked = () => {
-    if (liked === false) {
-      setLiked(true);
-      updateToFavPhotoIds(true, props.photo);
+    if (!favedPhotos.includes(photo)) {
+      console.log('okay')
+      updateToFavPhotoIds(true, photo);
     } else {
-      setLiked(false)
-      updateToFavPhotoIds(false, props.photo);
+      console.log('not okay')
+      updateToFavPhotoIds(false, photo);
     }
   }
 
   const handleModal = () => {
-    selectPhotos(props.photo)
+    setPhotoSelected(photo)
   }
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton liked={liked} photoLiked={photoLiked} updateToFavPhotoIds={updateToFavPhotoIds}/>
-      <img onClick={handleModal} className="photo-list__image" src={props.photo.urls.full}/>
+      <PhotoFavButton favedPhotos={favedPhotos} photoLiked={photoLiked} photo={photo}/>
+      <img onClick={handleModal} className="photo-list__image" src={photo.urls.full}/>
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={props.photo.user.profile}/>
+        <img className="photo-list__user-profile" src={photo.user.profile}/>
         <span className="photo-list__user-info">
-          {props.photo.user.name}
+          {photo.user.name}
           <br/>
-          <span className="photo-list__user-location">{props.photo.location.city}, </span>
-          <span className="photo-list__user-location"> {props.photo.location.country}</span>
+          <span className="photo-list__user-location">{photo.location.city}, </span>
+          <span className="photo-list__user-location"> {photo.location.country}</span>
         </span>
       </div>
     </div>

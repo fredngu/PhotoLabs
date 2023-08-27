@@ -6,12 +6,23 @@ import PhotoList from 'components/PhotoList';
 import photos from "mocks/photos";
 
 const HomeRoute = (props) => {
-  const {fav, selectPhotos, updateToFavPhotoIds} = props;
+  const {
+    setPhotoSelected, 
+    updateToFavPhotoIds,
+    state,
+    favedPhotos
+  } = props;
+
+
+  const handleModal = () => {
+    setPhotoSelected(photo)
+
+  }
   
   return (
     <div className="home-route">
-      <TopNavigation fav={fav}/>
-      <PhotoList photos={photos} selectPhotos={selectPhotos} updateToFavPhotoIds={updateToFavPhotoIds}/>
+      <TopNavigation fav={state.fav}/>
+      <PhotoList photos={photos} setPhotoSelected={setPhotoSelected} updateToFavPhotoIds={updateToFavPhotoIds} favedPhotos={favedPhotos}/>
     </div>
   );
 };

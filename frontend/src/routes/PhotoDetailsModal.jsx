@@ -7,20 +7,17 @@ import PhotoFavButton from 'components/PhotoFavButton';
 import photos from 'mocks/photos';
 
 const PhotoDetailsModal = (props) => {
-  const {onClosePhotoDetailsModal, photoSelected, selectPhotos, updateToFavPhotoIds} = props;
+  const {onClosePhotoDetailsModal, photoSelected, updateToFavPhotoIds, favedPhotos} = props;
 
-  const [liked, setLiked] = useState(false);
-  
   const photoLiked = () => {
-    if (liked === false) {
-      setLiked(true);
+    if (!favedPhotos.includes(photoSelected)) {
+      console.log('okay')
       updateToFavPhotoIds(true, photoSelected);
     } else {
-      setLiked(false)
+      console.log('not okay')
       updateToFavPhotoIds(false, photoSelected);
     }
   }
-
 
   // const {closeModal, photoModal, favedPhotos, setFavedPhotos} = props;
   let similarPhoto = Object.values(photoSelected.similar_photos)
@@ -32,13 +29,13 @@ const PhotoDetailsModal = (props) => {
       </button>
       <div className='photo-details-modal__images'>
         <br></br>
-        <PhotoFavButton liked={liked} photo={photoSelected} photoLiked={photoLiked}/>
+        <PhotoFavButton favedPhotos={favedPhotos} photo={photoSelected} photoLiked={photoLiked}/>
         <img className='photo-details-modal__image' src={photoSelected.urls.full}/>
         <br></br>
         <br></br>
         <span className='photo-details-modal__header'>Similar Photos</span>
         <div className='photo-details-modal__images'>
-          <PhotoList photos={similarPhoto} updateToFavPhotoIds={updateToFavPhotoIds}/>
+          {/* <PhotoList photos={similarPhoto} updateToFavPhotoIds={updateToFavPhotoIds}/> */}
         </div>
       </div>
     </div>

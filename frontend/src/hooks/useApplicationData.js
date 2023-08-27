@@ -38,7 +38,6 @@ import { useState, useReducer, useEffect } from "react";
 export default function useApplicationData(initial) {
   const [state, setState] = useState({
     fav: false,
-    modal: false,
   });
   // const [modal, setModal] = useState(false);
   const [photoSelected, setPhotoSelected] = useState(null);

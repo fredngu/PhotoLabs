@@ -11,13 +11,14 @@ const HomeRoute = (props) => {
     favedPhotos,
     selectPhoto,
     photoData,
+    selectTopic,
     topicData
   } = props;
   
   const photos = [...photoData]
   return (
     <div className="home-route">
-      <TopNavigation topicData={topicData} fav={state.fav}/>
+      <TopNavigation selectTopic={selectTopic} topicData={topicData} fav={state.fav}/>
       <PhotoList photos={photos} selectPhoto={selectPhoto} updateToFavPhotoIds={updateToFavPhotoIds} favedPhotos={favedPhotos}/>
     </div>
   );

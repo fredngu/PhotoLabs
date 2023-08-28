@@ -13,6 +13,7 @@ const App = () => {
     photoSelected,
     photoData,
     topicData,
+    selectTopic,
     selectPhoto,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
@@ -23,6 +24,7 @@ const App = () => {
       <HomeRoute updateToFavPhotoIds={updateToFavPhotoIds} state={state} favedPhotos={favedPhotos}
       selectPhoto={selectPhoto} 
       photoData={photoData}
+      selectTopic={selectTopic}
       topicData={topicData}/>
       {photoSelected !== null && 
       (<PhotoDetailsModal 

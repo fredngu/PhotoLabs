@@ -6,19 +6,22 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+  SET_TOPIC: 'SET_TOPIC',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 }
 
 export const initialState = {
   photoSelected: null,
   favedPhotos: [],
   fav: false,
+  topicID: null,
   photoData: [],
   topicData: []
 }
 
-const reducer = (state, action) => {
-  const {FAV_PHOTO_ADDED, FAV_PHOTO_REMOVED, SELECT_PHOTO, SET_PHOTO_DATA, SET_TOPIC_DATA} = ACTIONS;
+const reducer = (state = initialState, action) => {
+  const {FAV_PHOTO_ADDED, FAV_PHOTO_REMOVED, SELECT_PHOTO, SET_PHOTO_DATA, SET_TOPIC_DATA, SET_TOPIC, GET_PHOTOS_BY_TOPICS} = ACTIONS;
   switch (action.type) {
     case FAV_PHOTO_ADDED:
       return {
@@ -50,6 +53,16 @@ const reducer = (state, action) => {
         ...state,
         topicData: action.payload
       }
+    case SET_TOPIC:
+      return {
+        ...state,
+        topicID: action.value
+      }
+    case GET_PHOTOS_BY_TOPICS:
+      return {
+        ...state,
+        photoData: action.payload
+      }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -80,18 +93,31 @@ export default function useApplicationData() {
       dispatch({type: ACTIONS.FAV_PHOTO_REMOVED, value: photoID, id: photoID.id})
     }
   }
-  console.log(state.favedPhotos);
-  console.log(state);
-  console.log(state.photoSelected);
 
-  //close the modal
 
+  //modal functions
   const selectPhoto = (photo) => {
     dispatch({type: ACTIONS.SELECT_PHOTO, value: photo})
   }
   const onClosePhotoDetailsModal = () => {
     dispatch({type: ACTIONS.SELECT_PHOTO, value: null})
-    // setPhotoSelected(null);
+  }
+
+  //retrieves topic photos
+  useEffect(() => {
+    if (state.topicID != null) {
+      fetch(`http://localhost:8001/api/topics/photos/${state.topicID}`)
+      .then(res => res.json())
+      .then(data => {
+        dispatch({type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data
+        })
+      })
+    }
+  }, [state.topicID])
+
+  //retrieves topicIDs
+  const selectTopic = (topicID) => {
+    dispatch({type: ACTIONS.SET_TOPIC, value: topicID})
   }
 
   return {
@@ -100,6 +126,7 @@ export default function useApplicationData() {
     photoSelected: state.photoSelected,
     photoData: state.photoData,
     topicData: state.topicData,
+    selectTopic,
     updateToFavPhotoIds,
     selectPhoto,
     onClosePhotoDetailsModal

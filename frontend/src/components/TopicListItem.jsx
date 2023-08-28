@@ -9,10 +9,11 @@ import "../styles/TopicListItem.scss";
 // };
 
 const TopicListItem = (props) => {
+  const {selectTopic, topic} = props;
   return (
     <div className="topic-list__item">
-      <span>
-        {props.topic.title}
+      <span onClick={()=>selectTopic(topic.id)}>
+        {topic.title}
       </span>
     </div>
   );

@@ -28,6 +28,7 @@ const App = () => {
       topicData={topicData}/>
       {photoSelected !== null && 
       (<PhotoDetailsModal 
+      selectPhoto={selectPhoto}
       favedPhotos={favedPhotos}
       photoSelected={photoSelected} 
       onClosePhotoDetailsModal={onClosePhotoDetailsModal} 

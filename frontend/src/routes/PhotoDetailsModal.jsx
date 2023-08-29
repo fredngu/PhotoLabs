@@ -6,7 +6,7 @@ import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
 const PhotoDetailsModal = (props) => {
-  const {onClosePhotoDetailsModal, photoSelected, updateToFavPhotoIds, favedPhotos} = props;
+  const {onClosePhotoDetailsModal, photoSelected, updateToFavPhotoIds, favedPhotos, selectPhoto} = props;
 
   const photoLiked = () => {
     if (!favedPhotos.includes(photoSelected)) {
@@ -44,7 +44,7 @@ const PhotoDetailsModal = (props) => {
           <div className='photo-details-modal__header'>Similar Photos</div>
         </div>
         <div className='photo-details-modal__image'>
-          <PhotoList photos={similarPhoto} favedPhotos={favedPhotos}updateToFavPhotoIds={updateToFavPhotoIds} photoLiked={photoLiked}/>
+          <PhotoList photos={similarPhoto} favedPhotos={favedPhotos}updateToFavPhotoIds={updateToFavPhotoIds} photoLiked={photoLiked} selectPhoto={selectPhoto}/>
         </div>
       </div>
     </div>

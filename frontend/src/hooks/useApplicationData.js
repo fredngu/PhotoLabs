@@ -74,13 +74,13 @@ export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(()=> {
-    fetch('http://localhost:8001/api/photos')
+    fetch('/api/photos')
       .then(res => res.json())
       .then(data => dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: data}))
   },[])
 
   useEffect(() => {
-    fetch('http://localhost:8001/api/topics')
+    fetch('/api/topics')
       .then(res => res.json())
       .then(data => dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: data}))
   }, [])
@@ -93,8 +93,7 @@ export default function useApplicationData() {
       dispatch({type: ACTIONS.FAV_PHOTO_REMOVED, value: photoID, id: photoID.id})
     }
   }
-
-  console.log(state.favedPhotos);
+  console.log(state.favedPhotos)
 
   //modal functions
   const selectPhoto = (photo) => {
@@ -107,7 +106,7 @@ export default function useApplicationData() {
   //retrieves topic photos
   useEffect(() => {
     if (state.topicID != null) {
-      fetch(`http://localhost:8001/api/topics/photos/${state.topicID}`)
+      fetch(`/api/topics/photos/${state.topicID}`)
       .then(res => res.json())
       .then(data => {
         dispatch({type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data

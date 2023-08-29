@@ -93,11 +93,15 @@ export default function useApplicationData() {
       dispatch({type: ACTIONS.FAV_PHOTO_REMOVED, value: photoID, id: photoID.id})
     }
   }
-  console.log(state.favedPhotos)
 
   //modal functions
   const selectPhoto = (photo) => {
-    dispatch({type: ACTIONS.SELECT_PHOTO, value: photo})
+    if (photo.similar_photos) {
+      dispatch({type: ACTIONS.SELECT_PHOTO, value: photo})
+    } else {
+      let newPhoto = state.photoData.find((p) => p.id === photo.id)
+      dispatch({type: ACTIONS.SELECT_PHOTO, value: newPhoto})
+    }
   }
   const onClosePhotoDetailsModal = () => {
     dispatch({type: ACTIONS.SELECT_PHOTO, value: null})

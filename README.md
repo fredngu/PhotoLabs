@@ -25,6 +25,21 @@ Users will be able to view different photos in a side-peek modal, view photos ba
 
 Install dependencies with `npm install` in each respective `/frontend` and `/backend`.
 
+## Dependencies
+- React
+- React-dom
+- React-scripts
+- Web-vitals
+- SASS
+- Body-Parser
+- CORS
+- dotenv
+- express
+- helmet
+- pg
+- socket.io
+- ws
+
 ## [Frontend] Running Webpack Development Server
 
 ```sh

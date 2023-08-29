@@ -8,7 +8,7 @@ const PhotoListItem = (props) => {
   const {updateToFavPhotoIds, photo, favedPhotos, selectPhoto} = props
 
   const photoLiked = () => {
-    if (!favedPhotos.includes(photo)) {
+    if (!favedPhotos.find(object => object.id === photo.id)) {
       updateToFavPhotoIds(true, photo);
     } else {
       updateToFavPhotoIds(false, photo);

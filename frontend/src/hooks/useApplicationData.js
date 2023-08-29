@@ -30,7 +30,7 @@ const reducer = (state = initialState, action) => {
         fav: true,
       }
     case FAV_PHOTO_REMOVED:
-      const newArr = state.favedPhotos.filter((photos) => {return photos !== action.value})
+      const newArr = state.favedPhotos.filter((photos) => {return photos !== state.favedPhotos.find(object => object.id === action.value.id)})
       let favor;
       newArr.length <= 0 ? favor = false : favor = true;
       return {
@@ -88,12 +88,13 @@ export default function useApplicationData() {
   //updates the favourited photo array + favourite notification
   const updateToFavPhotoIds = (liked, photoID) => {
     if (liked === true && !state.favedPhotos.includes(photoID)) {
-      dispatch({type: ACTIONS.FAV_PHOTO_ADDED, value: photoID, id: photoID.id})
+      dispatch({type: ACTIONS.FAV_PHOTO_ADDED, value: photoID })
     } else if (liked === false) {
       dispatch({type: ACTIONS.FAV_PHOTO_REMOVED, value: photoID, id: photoID.id})
     }
   }
 
+  console.log(state.favedPhotos);
 
   //modal functions
   const selectPhoto = (photo) => {

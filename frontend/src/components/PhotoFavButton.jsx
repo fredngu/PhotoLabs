@@ -13,7 +13,7 @@ function PhotoFavButton(props) {
   return (
     <div className="photo-list__fav-icon">
       <div className="photo-list__fav-icon-svg" onClick={handleLiked}>
-        {favedPhotos.includes(photo) ? <FavIcon selected={true}/> : <FavIcon selected={false}/>}
+        {favedPhotos.find(object => object.id === photo.id) ? <FavIcon selected={true}/> : <FavIcon selected={false}/>}
       </div>
     </div>
   );
